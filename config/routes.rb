@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'static_pages/home'
+  root 'users#index'
+  
+  resources :users
+  resources :cities do
+    resources :listings
+  end
 end
