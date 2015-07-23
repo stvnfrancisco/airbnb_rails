@@ -1,17 +1,14 @@
 class UsersController < ApplicationController
   def index
     @users = User.all
-    render :index
   end
 
   def show
     @user = User.find(params[:id])
-    render :show
   end
 
   def new
     @user = User.new
-    render :new
   end
 
   def create
@@ -36,11 +33,11 @@ class UsersController < ApplicationController
       render :edit
     end
 
-    def destroy
-      @user = List.find(params[:id])
-      @user.destroy
-      redirect_to users_path
-    end
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    redirect_to users_path
+  end
 
 
 
