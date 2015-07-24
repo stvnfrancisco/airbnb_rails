@@ -1,0 +1,34 @@
+<h3 class="text-center">Current Listings</h3>
+
+<% if @listings %>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Location</th>
+        <th>Rate</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @listings.each do |listing| %>
+        <tr>
+          <td>
+            <%= link_to listing_path(listing) do %>
+              <%= listing.title %>
+            <% end %>
+          </td>
+          <td><%= listing.description %></td>
+          <td><%= listing.location %></td>
+          <td>$<%= listing.rate %></td>
+          <% if current_user == listing.user %>
+            <td><%= link_to "Edit", edit_listing_path(listing) %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+
+
+<% end %>

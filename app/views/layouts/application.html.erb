@@ -1,29 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Airbnb</title>
-  <%= stylesheet_link_tag    "application", media: "all" %>
-  <%= javascript_include_tag "application" %>
+  <title>AirBnB</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="container">
-    <div id="user_nav">
-    <% if user_signed_in? %>
-    Logged in as <strong><%= current_user.email %></strong>.
-    <%= link_to "Edit profile", edit_user_registration_path %> |
-    <%= link_to "Logout", destroy_user_session_path, method: :delete %>
-    <% else %>
-      <%= link_to "Sign_up", new_user_registration_path %> |
-      <%= link_to "Log_in", new_user_session_path %>
-    <% end %>
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <%= link_to "AirBnB", root_path, class: "navbar-brand" %>
+      </div>
+      <ul class='nav navbar-nav'>
+        <li><%= link_to "View all listings", listings_path %></li>
+      </ul>
+      <ul class='nav navbar-nav navbar-right'>
+
+        <% if user_signed_in? %>
+          <p class="navbar-text">Signed in as <%= link_to current_user.username, user_path(current_user) %></p>
+          <li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+          <li><%= link_to "Edit Profile", edit_user_registration_path %></li>
+        <% else %>
+          <li><%= link_to "Sign in", new_user_session_path %></li>
+          <li><%= link_to "Sign up", new_user_registration_path %></li>
+        <% end %>
+
+
+      </ul>
+    </div>
+  </nav>
+  <div class="container">
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
   </div>
-
-  <% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, id: "flash_#{name}" %>
-  <% end %>
-
-<%= yield %>
 
 </body>
 </html>
